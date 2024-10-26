@@ -1,130 +1,112 @@
-# Vanillae
+# Jex: simple TypeScript/JavaScript packaging system
 
-## How to use this project
+Jex is a work-in-progress package manager developed to solve the specific
+packaging needs of the vanillae project.
 
+## Installation
 
-## Downloads
+Jex is very much a work in progress, so these instructions are subject to
+change, and may not work anymore by the time you are reading this
 
+0.  Install system dependencies
+    ```
+    tree rsync
+    ```
+1.  `git clone https://github.com/aeternity/Vanillae.git`
+2.  [Install Erlang and zx](https://www.bitchute.com/video/1gCvcoPUR7eJ/)
+3.  Install NPM ["How to install NPM without getting AIDS"](../../docs/npm-misc/README.md)
+4.  Install TypeScript `npm install -g typescript`
+5.  Edit `~/.bashrc` (or `~/.zshrc` or whatever) and add
 
-## Quick Links
+    ```
+    alias jex="zx rundir ~/path/to/Vanillae/utils/jex"
+    ```
 
--   [Vanillae Grant Proposal][grant-proposal]
--   [Vanillae Files][vanillae-files], miscellaneous explainers mostly for
-    things that should take 1 hour to learn but in practice take 11 hours
-    because information has to be synthesized from multiple sources
-
--   Video content
-    -   [Vanillae Rumble Channel](https://rumble.com/c/c-3509606)
-    -   [Vanillae Odysee Channel](https://odysee.com/@VanillaeProject:0)
-    -   [Vanillae YouTube Channel](https://www.youtube.com/@vanillaeproject)
--   Miscellany:
-    -   [Aegora.jp][aegora], original impetus for product
-    -   [Aeternity JS SDK][aesdk], which you want for more complicated use cases
-
-## About this project
-
-Aeternity is a high-performance open-source decentralized payment network.
-Vanillae is a tool suite for using Aeternity.  There is both developer-facing
-tooling and user-facing tooling. There is also miscellaneous documentation, and
-explainers etc.
-
-The two developers are Craig Everett (@zxq9) and Peter Harpending (@pharpend).
-Vanillae grew out of [Aegora.jp][aegora].  We made a simple
-e-commerce store using Aeternity as the payment system.  We encountered a lot
-of rough edges in Aeternity's tooling, so developed our own, and
-open-sourced it.  The Aeternity Foundation chose to pay us to grow out our
-toolset, and that became this project.  You can read the [grant
-proposal][grant-proposal] for more information.
-
-Often during this process we ran into some thing that really should take 1 hour
-to learn about, but in practice takes 11 hours because you have to synthesize
-information from 100 different sources.  In many of those cases, we went to the
-trouble to write it all out in one place (that's the [Vanillae
-Files][vanillae-files]), and in some cases there are videos on our
-YT/Rumble/Odysee channels.
-
-The goal is to write an explainer doc and have one or more videos for each
-instance of information synthesis paralysis.
-
-Generally, we write tools that we want to use.  So
-
--   Functionality tends to be pretty minimal.
--   The only usage cases covered are those we have actually encountered.
--   When we encounter a tradeoff between simplicity and flexibility, we
-    generally have chosen simplicity.
--   Our primary deployment target is the [zx/zomp ecosystem][zx-zomp], not the
-    Node/NPM ecosystem
-
-    For instance, this means that our JS/TS code is meant to run inside a
-    browser, and we don't give any thought to running it as server-side JS,
-    because that's not something we would ever do ourselves.
-
-    We're happy to support the Node/NPM ecosystem on a case-by-case basis as
-    long as it doesn't force us to reduce the quality of our product.
-
-If you have a more complicated use case or live in the Node/NPM ecosystem, you
-want the [Aeternity JavaScript SDK][aesdk] The SDK is a Swiss Army Knife.
-Vanillae is just a set of knives, each of which was designed for a specific
-cutting task.
-
-
-## Directory Structure
+## Usage
 
 ```
-art/                    Project icons, etc
-bindings/               FLAGSHIP: APIs to talk to the AE blockchain from app backend
-    erlang/                 [ERL] Erlang Vanillae Bindings
-docs/                   Explainer docs
-    baseN/                  Base64 versus Base58 (they are fundamentally different ideas!)
-    ecc/                    Elliptic Curve Cryptography
-    jex/                    Jex: our TS/JS packaging tool we use instead of NPM
-    kek/                    The Keccak/SHA-3 Algorithm explained
-    npm-misc/               How to install NPM on Linux such that you never have to use `sudo npm`
-    rlp/                    Ethereum's Recursive-Length-Prefix codec explained
-    seed-phrases/           How seed phrase recovery works
-    sk-awcp/                How to use Sidekick and AWCP
-jrx/                    [TS] FLAGSHIP: the Jack Russell browser wallet extension
-libs/                   Miscellaneous (non-flagship) libraries
-    awcp/                   [TS]  Aepp-Waellet Communication Protocol: types for messages sent between page scripts and browser extension wallets
-    parasite/               [TS]  Function library for talking to public aeternity nodes (do not use please)
-    tweetnacl/              [TS]  Jex-packaged clone of public domain TweetNaCL library
-    vdk_aeser/              [TS]  Serializer/deserializer library for AE data structures
-    vdk_base58/             [TS]  Base 58 encode/decode library
-    vdk_base64/             [TS]  Base 64 encode/decode library
-    vdk_binary/             [TS]  Miscellaneous binary functions that should exist in the stdlib but don't
-    vdk_colors/             [TS]  Assigns a color to arbitrary byte array (for color-coding keys in JR)
-    vdk_faert/              [TS]  Fast AEternity Recovery Text: a replacement for the Bitcoin seed phrase standard
-    vdk_names/              [TS]  Assigns a human readable name to a byte array (for naming keys in JR)
-    vdk_rlp/                [TS]  Ethereum RLP standard TypeScript library
-    vdk_safe/               [TS]  Equivalent of Haskell's Either type
-    vdk_tests/              [TS]  Test/example suite for VDK
-    vdk_tests_cases/        [TS]  Randomly generated test cases for some VDK packages (e.g. checking our RLP agrees with Ethereum's)
-    vrlp/                   [ERL] Ethereum RLP library in Erlang
-sidekick/               [TS] FLAGSHIP: TS library to talk to browser wallet extension (e.g. Superhero, hence name) from page script
-sidekick_examples/      [TS] Example/test suite for sidekick
-site/                   Website for the vanillae project (soon to be deprecated/deleted)
-utils/                  Miscellaneous utilities
-    jex/                    [ERL] Simple TS/JS packaging utility, our alternative to NPM
-    vlogd/                  [ERL] Simple HTTP server that just logs input data, for demoing sidekick's HTTP logging functionality
-    vw/                     [ERL] Vanillae Wallet: scratchpad for working out complicated wallet stuff (e.g. seed phrase recovery) in saner environment
+Jex: simple JavaScript packaging system
+
+COMMANDS:
+  man             show the manual
+  dwim-           init, pull, build
+  dwim+           init, pull, build, mindist, push
+  cfgbarf         barf out the jex.eterms file (mostly to make sure it parses correctly)
+  echo home       echo $HOME
+  echo jexdir     echo $HOME/.jex
+  echo devdir     echo $HOME/.jex/dev
+  echo pkgname    name of current package
+  echo pkgdir     echo $HOME/.jex/dev/realm-name-X.Y.Z
+  echo deps       list dependencies of current package
+  echo pathof PKG list the path to PKG or 
+  init            mkdir -p $HOME/.jex/dev
+  build           tsc && cp -r ./src/jex_include ./dist/
+      -w, --weak      continue building even if tsc fails
+      -f, --force     use cp -rf instead of cp -r
+  mindist         mkdir jex_mindist && cp -r src jex_mindist && cp -r dist jex_mindist && rm -r jex_mindist/src/jex_include
+      -f, --force     use cp -rf instead of cp -r
+  push            rsync -a jex_mindist/ PKGDIR
+  ls              ls $HOME/.jex/dev
+  tree            tree $HOME/.jex/
+  rmpkg PKG       rm -r $HOME/.jex/dev/PKG
+  pull            pull each dependency into src/jx_include
 ```
 
-## Flagship products
+## About
 
-### Vanillae Bindings
+As of now, Jex is a glorified shell script that automates a lot of the tedium
+in building sidekick, JR, etc.
 
-### Jack Russell
+The long-term goal is to completely remove any dependency on NPM.  NPM comes
+with a lot of unfixable security issues that present an unacceptable risk in a
+business context, which is the focus of the Vanillae project.
 
-### Sidekick
+This isn't something like yarn where it's the same thing as NPM but it is
+prettier or something. Totally different packaging concept.
 
-## Miscellaneous products of note
+### Differences from NPM
 
-### Vanillae Files
 
-### Jex
+1.  **Minimizing dynamicism**
 
-[aegora]:           https://aegora.jp
-[aesdk]:            https://github.com/aeternity/aepp-sdk-js
-[grant-proposal]:   https://forum.aeternity.com/t/active-application-vanillae/10638
-[vanillae-files]:   ./docs/
-[zx-zomp]:          http://zxq9.com/projects/zomp/
+    The basic assumption of NPM is that everything works all the time, and
+    because that isn't true, nothing ever works and everything is always
+    broken.  The basic assumption of Jex is that nothing ever works and
+    everything is always broken, and because that's true, everything works all
+    the time, sometimes.
+
+    Concretely, this means that you have to do all dependency management
+    manually. If you are trying to build package `A` and it depends on packages
+    `B`, `C`, and `D`, then you have to go find packages `B`, `C`, and `D`,
+    build them and then go back and build package `A`.
+
+    Again, the assumption (objectively true) is that everything is always
+    broken.  So on the off chance that something works by happenstance, Jex's
+    strategy is to give it the Ted Williams treatment and never touch it ever
+    again.
+
+    There's an implicit assumption here that the total volume of JavaScript
+    code is fairly small.  Manual dependency management is not feasible if your
+    project has 11,000 dependencies, requires 18 different packages called
+    "babel" just to build, and "minifies" to a 20kb opaque blob.  As a
+    guideline, if the number of external package dependencies grows large
+    enough that a single developer cannot manage them manually, then, (over
+    time) the primary activity of said developer becomes trying to get all the
+    different packages to play nicely together.
+
+    In other words, manual dependency management is inescapable.  Jex is simply
+    honest about that fact and prevents you from digging yourself into a hole.
+
+2.  **Node is bad**
+
+    The next departure from NPM is that we don't care at all about the node
+    runtime.  JavaScript was invented by Satan as a joke.  Using JavaScript at
+    all for any reason is a terrible idea.  It is an especially terrible idea
+    to write any code in JavaScript that does not absolutely have to be written
+    in JavaScript.
+
+    All that is to say, whenever we write JavaScript code, the assumption is
+    that the code will be run in a browser and only in a browser.
+
+    We are never writing generic libraries that could either run in the browser
+    or run in the node runtime.

@@ -1,7 +1,0 @@
-{type, library}.
-{realm, local}.
-{name, sidekick_examples}.
-{version, "0.2.2"}.
-{deps, ["local-awcp-0.2.2",
-        "local-parasite-0.2.2",
-        "local-sidekick-0.2.2"]}.
