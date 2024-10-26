@@ -1,7 +1,32 @@
-# Jex: simple TypeScript/JavaScript packaging system
+# jex2
 
-Jex is a work-in-progress package manager developed to solve the specific
-packaging needs of the vanillae project.
+jex was written because I hate NPM and refuse to use it because the entire
+premise of it is insane (see: [Cannon
+Conjugate](https://zxq9.com/archives/2869)).
+
+jex is written to satisfy my own usage cases and against exactly the software I
+happen to have installed on my system (rsync, etc), and against my development
+workflow, and against my preferences regarding product deployment. For
+instance, I don't do bundling/minification. I prefer to ship users JavaScript
+that is human-readable. I simply ship a small enough volume of JavaScript that
+this is not an issue for my users.
+
+My use case is that I have many products I develop (browser extensions and
+client-side libs, not Node applications) written in TypeScript, and they have
+common library dependencies. I have written most of these libraries myself, and
+the number of external libraries is small enough that I can keep them
+up-to-date by hand.
+
+Jex manages the flow of developing a library while not breaking the
+dependents of that library (local packaging, essentially). It also solves the
+problem of packaging the libraries for anyone else who wants to use them.
+
+Jex's interface is exactly unconfusing enough that I can kind of remember how to
+use it, and jex doesn't break important things often enough that it's worth the
+pain to go back and think through how to structure the interface correctly.
+
+If you have suggestions or patches or whatever to make jex less insane, I'm all
+ears.
 
 ## Installation
 
@@ -12,14 +37,14 @@ change, and may not work anymore by the time you are reading this
     ```
     tree rsync
     ```
-1.  `git clone https://github.com/aeternity/Vanillae.git`
+1.  `git clone https://github.com/pharpend/jex2.git`
 2.  [Install Erlang and zx](https://www.bitchute.com/video/1gCvcoPUR7eJ/)
 3.  Install NPM ["How to install NPM without getting AIDS"](../../docs/npm-misc/README.md)
 4.  Install TypeScript `npm install -g typescript`
 5.  Edit `~/.bashrc` (or `~/.zshrc` or whatever) and add
 
     ```
-    alias jex="zx rundir ~/path/to/Vanillae/utils/jex"
+    alias jex="zx rundir ~/path/to/this/directory"
     ```
 
 ## Usage
